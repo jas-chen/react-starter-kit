@@ -11,7 +11,7 @@ function setup(name) {
 
 describe('Hello component', () => {
   it('should display name', () => {
-    const component = setup('Jas Chen')
-    expect(component.find('div').text()).toMatch(/^Hello Jas Chen$/);
+    const component = setup('Jas Chen');
+    expect(component.find('div').text()).toMatch(/^Hello Jas Chen!$/);
   })
 })
