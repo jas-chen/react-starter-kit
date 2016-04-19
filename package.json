@@ -8,7 +8,12 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "watch": "node server/app.js",
+    "perbuild": "npm run clean",
+    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details"
   },
   "repository": {
     "type": "git",
@@ -32,7 +37,10 @@
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
     "eslint": "^2.8.0",
-    "eslint-plugin-react": "^5.0.1",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-import": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^0.6.2",
+    "eslint-plugin-react": "^4.3.0",
     "expect": "^1.18.0",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -54,6 +62,6 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-server": "^1.14.1"
   }
 }
