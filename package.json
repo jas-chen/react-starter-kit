@@ -1,0 +1,23 @@
+{
+  "name": "react-starter-kit",
+  "version": "0.0.1",
+  "description": "React Starter Kit",
+  "private": true,
+  "engines":{
+    "node": ">=5.0.0",
+    "npm": ">=3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jas-chen/react-starter-kit.git"
+  },
+  "author": "Jas Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jas-chen/react-starter-kit/issues"
+  },
+  "homepage": "https://github.com/jas-chen/react-starter-kit#readme"
+}
