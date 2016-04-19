@@ -22,7 +22,7 @@ const scssLoader = {
 
 const config = {
     context: path.resolve(__dirname, '../src/'),
-    devtool: 'sourceMap',
+    devtool: 'source-map',
     entry: {
       main: ['./index.js']
     },
