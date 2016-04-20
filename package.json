@@ -9,7 +9,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "BABEL_DISABLE_CACHE=1 NODE_ENV=TEST mocha --recursive --compilers js:babel-register",
+    "test": "BABEL_DISABLE_CACHE=1 NODE_ENV=TEST mocha --recursive --compilers js:babel-register --require ./test/setup.js",
     "lint": "eslint src",
     "watch": "node server/app.js",
     "prebuild": "npm run clean",
