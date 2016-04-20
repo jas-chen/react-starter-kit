@@ -15,7 +15,8 @@
     "lint": "npm run lint:js && npm run lint:css",
     "watch": "node server/app.js",
     "prebuild": "npm run clean",
-    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details"
+    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details",
+    "precommit": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "husky": "^0.11.4",
     "jsdom": "^8.4.0",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
