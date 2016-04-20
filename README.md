@@ -32,10 +32,12 @@
   - Autoprefixer
 - CSS Modules
   - react-css-modules
+- Extract Text Plugin for Webpack
 
 ## Test
 - Mocha
 - Enzyme
+- babel-plugin-webpack-loaders
 - Protractor
 
 ## Git Hook
