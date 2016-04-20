@@ -6,12 +6,12 @@ import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import createHashHistory from 'history/lib/createHashHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import Layout from 'components/Layout/Layout';
-import Home from 'components/Home/Home';
-import About from 'components/About/About';
-import Repos from 'components/Repos/Repos';
+import Layout from './components/Layout/Layout';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Repos from './components/Repos/Repos';
 
-import configureStore from 'store/configureStore';
+import configureStore from './store/configureStore';
 
 
 // disable ?_k in url

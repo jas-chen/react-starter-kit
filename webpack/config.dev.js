@@ -47,7 +47,7 @@ const config = {
     ],
     resolve: {
       modulesDirectories: [
-        'node_modules', 'src'
+        'node_modules'
       ]
     },
     plugins: [

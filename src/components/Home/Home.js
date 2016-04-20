@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Actions from 'actions/counter';
+import * as Actions from '../../actions/counter';
 
 function Home(props) {
   const { number, increase, decrease } = props;
