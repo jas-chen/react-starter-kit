@@ -25,7 +25,7 @@ const config = {
     context: path.resolve(__dirname, '../src/'),
     devtool: 'eval',
     entry: {
-      main: ['./index.js']
+      main: ['./app.js']
     },
     output: {
       path: __dirname, // Just don't let this field be empty.

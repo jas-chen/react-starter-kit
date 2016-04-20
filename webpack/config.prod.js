@@ -24,7 +24,7 @@ const config = {
     context: path.resolve(__dirname, '../src/'),
     devtool: 'source-map',
     entry: {
-      main: ['./index.js']
+      main: ['./app.js']
     },
     output: {
       path: path.join(__dirname, '../dist'),
