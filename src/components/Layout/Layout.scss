@@ -1,7 +1,7 @@
 $primary-color: #b5375e;
 
 .logo {
+  color: $primary-color;
   // test autoprefixer
   display: flex;
-  color: $primary-color;
 }

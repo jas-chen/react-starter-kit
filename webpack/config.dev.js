@@ -3,6 +3,7 @@
 const path = require('path');
 const commonLoaders = require('./commonLoaders.js');
 const autoprefixer = require('autoprefixer');
+const sassLintPlugin = require('sasslint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const jsLoader = {
@@ -50,6 +51,9 @@ const config = {
       ]
     },
     plugins: [
+      new sassLintPlugin({
+        ignorePlugins: ['extract-text-webpack-plugin']
+      }),
       new ExtractTextPlugin('style/[name].css')
     ]
 };

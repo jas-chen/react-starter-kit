@@ -10,7 +10,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "BABEL_DISABLE_CACHE=1 NODE_ENV=TEST mocha --recursive --compilers js:babel-register --require ./test/setup.js",
-    "lint": "eslint src",
+    "lint:js": "eslint src",
+    "lint:css": "sass-lint -c .sass-lint.yml './src/**/*.scss' -v",
+    "lint": "npm run lint:js && npm run lint:css",
     "watch": "node server/app.js",
     "prebuild": "npm run clean",
     "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details"
@@ -61,7 +63,9 @@
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
     "redux-logger": "^2.6.1",
+    "sass-lint": "^1.5.1",
     "sass-loader": "^3.2.0",
+    "sasslint-webpack-plugin": "^1.0.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
