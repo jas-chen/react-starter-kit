@@ -3,6 +3,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Hello from '../../src/components/Hello/Hello';
 
+const rendomString = Math.round(Math.random()*1000).toString();
+
 function setup(name) {
   return shallow(
     <Hello name={name} />
@@ -11,7 +13,7 @@ function setup(name) {
 
 describe('Hello component', () => {
   it('should display name', () => {
-    const component = setup('Jas Chen');
-    expect(component.find('div').text()).toMatch(/^Hello Jas Chen!$/);
-  })
-})
+    const component = setup(rendomString);
+    expect(component.find('div').text()).toEqual(`Hello ${rendomString}!`);
+  });
+});
