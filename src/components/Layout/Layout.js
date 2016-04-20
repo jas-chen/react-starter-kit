@@ -17,7 +17,7 @@ function Layout(props) {
 }
 
 Layout.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: React.PropTypes.element.isRequired
 };
 
 export default rcm(Layout, styles);
