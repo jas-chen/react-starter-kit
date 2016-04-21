@@ -6,7 +6,10 @@ const proxy = require('proxy-middleware');
 
 const port = 3002;
 
-const data = {
+const app = server.create();
+
+// mock endpoint
+const repoRouter = server.router({
   repos: _.times(5, index => {
     const name = faker.random.word();
     return {
@@ -16,15 +19,21 @@ const data = {
       html_url: `https://github.com/jas-chen/${name}`
     };
   })
-};
+});
 
-const app = server.create();
-const router = server.router(data);
+// proxy to real api server
+const proxyRouter = proxy(url.parse(`https://api.github.com/`));
 
-// Mock API
 app.use(server.defaults());
-app.use('/users/jas-chen', router);
-app.use('/', proxy(url.parse(`https://api.github.com/`)));
+
+app.use((req, res, next) => {
+  if (req.originalUrl === '/users/jas-chen/repos') {
+    repoRouter(req, res, next);
+    return;
+  }
+
+  proxyRouter(req, res, next);
+});
 
 app.listen(port, (error) => {
   if (error) throw error;
