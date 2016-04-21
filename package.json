@@ -14,6 +14,7 @@
     "lint:css": "sass-lint -c .sass-lint.yml './src/**/*.scss' -v",
     "lint": "npm run lint:js && npm run lint:css",
     "watch": "node server/app.js",
+    "api": "node server/api.js",
     "prebuild": "npm run clean",
     "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details",
     "precommit": "npm run lint && npm test"
