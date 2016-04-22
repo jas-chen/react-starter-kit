@@ -17,7 +17,7 @@
     "start": "NODE_ENV=production node server/static.js",
     "api": "node server/api.js",
     "prebuild": "npm run clean",
-    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details && babel-node scripts/buildHtml.js",
+    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details && babel-node scripts/write-html-file.js",
     "postbuild": "rm dist/stats.json",
     "precommit": "npm run lint && npm test"
   },
