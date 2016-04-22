@@ -26,6 +26,11 @@ function Html(props) {
 
 Injector.prototype.inject = function(assetsByChunkName) {
   const chunks = this.chunkNames.reduce((chunks, name) => {
+    if (typeof assetsByChunkName[name] === 'string') {
+      chunks.js.push(`${this.finalPath}${assetsByChunkName[name]}`);
+      return chunks;
+    }
+
     const jsFile = assetsByChunkName[name].find(filename => filename.match(/\.js$/));
     if (jsFile) {
       chunks.js.push(`${this.finalPath}${jsFile}`);

@@ -4,7 +4,6 @@ const path = require('path');
 const commonLoaders = require('./commonLoaders.js');
 const autoprefixer = require('autoprefixer');
 const sassLintPlugin = require('sasslint-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const jsLoader = {
@@ -19,7 +18,7 @@ const jsLoader = {
 
 const scssLoader = {
   test: /\.scss$/,
-  loader: ExtractTextPlugin.extract('style-loader', 'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
+  loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
 };
 
 const config = {
@@ -52,10 +51,7 @@ const config = {
       ]
     },
     plugins: [
-      new sassLintPlugin({
-        ignorePlugins: ['extract-text-webpack-plugin']
-      }),
-      new ExtractTextPlugin('style/[hash].[name].css'),
+      new sassLintPlugin(),
       new StatsWriterPlugin()
     ]
 };
