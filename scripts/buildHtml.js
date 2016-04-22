@@ -1,10 +1,10 @@
-const path = require('path');
-const fs = require('fs');
-const config = require('../webpack/config.prod.js');
-const Injector = require('../shared/html-injector.js');
+import path from 'path';
+import fs from 'fs';
+import config from '../webpack/config.prod.js';
+import Injector from '../shared/html-injector.js';
 
 const distPath = path.join(config.output.path, '..');
-const injector = new Injector(path.join(__dirname, '../src/index.html'), config.output.publicPath, ['main']);
+const injector = new Injector(config.output.publicPath, ['main']);
 const stats = JSON.parse(fs.readFileSync(path.join(distPath, 'stats.json')).toString());
 const html = injector.inject(stats.assetsByChunkName);
 

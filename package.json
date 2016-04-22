@@ -13,11 +13,11 @@
     "lint:js": "eslint src",
     "lint:css": "sass-lint -c .sass-lint.yml './src/**/*.scss' -v",
     "lint": "npm run lint:js && npm run lint:css",
-    "watch": "NODE_ENV=development node server/app.js",
-    "start": "NODE_ENV=production node server/app.js",
+    "watch": "NODE_ENV=development babel-node server/app.js",
+    "start": "NODE_ENV=production node server/static.js",
     "api": "node server/api.js",
     "prebuild": "npm run clean",
-    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details && node scripts/buildHtml.js",
+    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details && babel-node scripts/buildHtml.js",
     "postbuild": "rm dist/stats.json",
     "precommit": "npm run lint && npm test"
   },
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/jas-chen/react-starter-kit#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "babel-cli": "^6.7.7",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.3",
     "babel-loader": "^6.2.4",

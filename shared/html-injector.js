@@ -1,31 +1,46 @@
-'use strict';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const fs = require('fs');
-
-function Injector(htmlFilePath, publicPath, chunkNames) {
-  this.htmlFilePath = htmlFilePath;
+function Injector(publicPath, chunkNames) {
   this.finalPath = publicPath || '/';
   this.chunkNames = chunkNames;
 }
 
-Injector.prototype.inject = function(assetsByChunkName) {
-  const html = fs.readFileSync(this.htmlFilePath).toString();
+function Html(props) {
+  const { js, css } = props.chunks;
 
-  const files = this.chunkNames.reduce((files, name) => {
+  return (
+    <html lang="zh-hant">
+    <head>
+      <meta charSet="UTF-8" />
+      <title>React Starter Kit</title>
+      { css.map((href, i) => <link key={i} rel="stylesheet" href={href} />) }
+    </head>
+    <body>
+      <div id="root"></div>
+      { js.map((src, i) => <script key={i} src={src}></script>) }
+    </body>
+    </html>
+  );
+}
+
+Injector.prototype.inject = function(assetsByChunkName) {
+  const chunks = this.chunkNames.reduce((chunks, name) => {
     const jsFile = assetsByChunkName[name].find(filename => filename.match(/\.js$/));
     if (jsFile) {
-      files.js += `<script src="${this.finalPath}${jsFile}"></script>`;
+      chunks.js.push(`${this.finalPath}${jsFile}`);
     }
 
     const cssFile = assetsByChunkName[name].find(filename => filename.match(/\.css$/));
     if (cssFile) {
-      files.css += `<link rel="stylesheet" href="${this.finalPath}${cssFile}">`;
+      chunks.css.push(`${this.finalPath}${cssFile}`);
     }
 
-    return files;
-  }, { js: '', css: ''});
+    return chunks;
+  }, { js: [], css: []});
 
-  return html.replace('</body>', `${files.js}</body>`).replace('</head>', `${files.css}</head>`);
+  const markup = ReactDOMServer.renderToStaticMarkup(<Html chunks={chunks} />);
+  return `<!DOCTYPE html>${markup}`;
 }
 
-module.exports = Injector;
+export default Injector;

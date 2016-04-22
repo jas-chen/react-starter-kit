@@ -1,18 +1,17 @@
 'use strict'
 
-const path = require('path');
-const https = require('https');
-const fs = require('fs');
-const url = require('url');
+import path from 'path';
+import https from 'https';
+import fs from 'fs';
+import url from 'url';
 
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const proxy = require('proxy-middleware');
-const config = require('../webpack/config.dev');
-const Injector = require('../shared/html-injector.js');
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import proxy from 'proxy-middleware';
+import config from '../webpack/config.dev';
+import Injector from '../shared/html-injector.js';
 
-const htmlFilePath = path.resolve(__dirname, '../src/index.html');
-const injector = new Injector(htmlFilePath, config.output.publicPath, ['main']);
+const injector = new Injector(config.output.publicPath, ['main']);
 
 const app = new (require('express'))();
 
