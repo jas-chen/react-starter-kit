@@ -1,5 +1,34 @@
 # React Starter Kit
 
+## Usage
+
+### Start api server
+```
+npm run api
+```
+
+### Start dev server
+```
+npm run watch
+```
+
+### Test
+```
+npm test
+```
+
+### Build project
+Build into `dist` directory.
+```
+npm run build
+```
+
+### Verify
+Start a static server at `dist` directory.
+```
+npm start
+```
+
 ## Module Bundler
 - Webpack
 
