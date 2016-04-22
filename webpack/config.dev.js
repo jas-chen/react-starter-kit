@@ -37,7 +37,7 @@ const config = {
         {
           test: /\.js$/,
           loader: "eslint",
-          exclude: /node_modules/
+          exclude: [/node_modules/, /.spec\.js$/]
         }
       ],
       loaders: commonLoaders.concat([jsLoader, scssLoader])

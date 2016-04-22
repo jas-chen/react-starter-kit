@@ -35,9 +35,9 @@
 - Extract Text Plugin for Webpack
 
 ## Test
+- Karma
 - Mocha
 - Enzyme
-- babel-plugin-webpack-loaders
 - Protractor
 
 ## Git Hook
