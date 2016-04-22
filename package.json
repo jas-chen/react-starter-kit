@@ -13,10 +13,12 @@
     "lint:js": "eslint src",
     "lint:css": "sass-lint -c .sass-lint.yml './src/**/*.scss' -v",
     "lint": "npm run lint:js && npm run lint:css",
-    "watch": "node server/app.js",
+    "watch": "NODE_ENV=development node server/app.js",
+    "start": "NODE_ENV=production node server/app.js",
     "api": "node server/api.js",
     "prebuild": "npm run clean",
-    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details",
+    "build": "webpack --config webpack/config.prod.js --progress --verbose --colors --display-error-details && node scripts/buildHtml.js",
+    "postbuild": "rm dist/stats.json",
     "precommit": "npm run lint && npm test"
   },
   "repository": {
@@ -77,6 +79,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1",
+    "webpack-stats-plugin": "^0.1.1",
     "whatwg-fetch": "^0.11.0"
   }
 }

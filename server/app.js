@@ -8,24 +8,49 @@ const url = require('url');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const proxy = require('proxy-middleware');
-
 const config = require('../webpack/config.dev');
+const Injector = require('../shared/html-injector.js');
+
+const htmlFilePath = path.resolve(__dirname, '../src/index.html');
+const injector = new Injector(htmlFilePath, config.output.publicPath, ['main']);
 
 const app = new (require('express'))();
 
 const sslPath = path.join(__dirname, '..', 'node_modules', 'webpack-dev-server', 'ssl');
-const htmlPath = path.resolve(__dirname, '../src/index.html');
+
 
 const port = 3000;
 const devPort = 3001;
 
-const devUrl = url.parse(`https://localhost:${devPort}/assets`);
+const publicPath = `https://localhost:${devPort}${config.output.publicPath}`;
+const statsUrl = url.parse(`${publicPath}stats.json`);
+statsUrl.rejectUnauthorized = false;
+
+function getStats(cb) {
+  https.get(statsUrl, (statsRes) => {
+    let body = '';
+
+    if (statsRes.statusCode !== 200) {
+      throw new Error(`Cannot get webpack stats from ${statsUrl.href}. Status code is ${statsRes.statusCode}.`);
+    }
+
+    statsRes.on('data', (chunk) => body += chunk);
+    statsRes.on('end', () => cb(JSON.parse(body)));
+  }).on('error', e => { throw e; });
+}
+
+// proxy to webpack dev server
+const devUrl = url.parse(publicPath);
 devUrl.rejectUnauthorized = false;
+app.use(`${config.output.publicPath}`, proxy(devUrl));
 
-app.use('/assets', proxy(devUrl));
 
+// serve index.html
 app.get('/', function response(req, res, next) {
-  res.sendFile(htmlPath);
+  getStats(stats => {
+    const html = injector.inject(stats.assetsByChunkName);
+    res.send(html);
+  });
 });
 
 function StartHttpsServer() {
@@ -53,7 +78,7 @@ const webpackDevServer = new WebpackDevServer(webpack(config), {
   quiet: false,
   noInfo: true,
   https: true,
-  publicPath: '/assets',
+  publicPath: config.output.publicPath,
   stats: { colors: true }
 });
 

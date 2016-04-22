@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const commonLoaders = require('./commonLoaders.js');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const jsLoader = {
   test: /\.js$/,
@@ -27,7 +28,7 @@ const config = {
       main: ['./app.js']
     },
     output: {
-      path: path.join(__dirname, '../dist'),
+      path: path.join(__dirname, '..', 'dist', 'assets'),
       publicPath: '/assets/',
       filename: '[chunkhash:8].[name].js'
     },
@@ -55,7 +56,10 @@ const config = {
         compress: {
           warnings: false
         }
-    })
+      }),
+      new StatsWriterPlugin({
+        filename: '../stats.json'
+      })
     ]
 };
 

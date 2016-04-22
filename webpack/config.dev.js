@@ -5,6 +5,7 @@ const commonLoaders = require('./commonLoaders.js');
 const autoprefixer = require('autoprefixer');
 const sassLintPlugin = require('sasslint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const jsLoader = {
   test: /\.js$/,
@@ -30,7 +31,7 @@ const config = {
     output: {
       path: __dirname, // Just don't let this field be empty.
       publicPath: '/assets/',
-      filename: '[name].js'
+      filename: '[hash].[name].js'
     },
     module: {
       preLoaders: [
@@ -54,7 +55,8 @@ const config = {
       new sassLintPlugin({
         ignorePlugins: ['extract-text-webpack-plugin']
       }),
-      new ExtractTextPlugin('style/[name].css')
+      new ExtractTextPlugin('style/[hash].[name].css'),
+      new StatsWriterPlugin()
     ]
 };
 
