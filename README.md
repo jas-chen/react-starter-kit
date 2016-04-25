@@ -29,31 +29,33 @@ Start a static server at `dist` directory.
 npm start
 ```
 
-## Module Bundler
+## What's Inside?
+
+### Module Bundler
 - Webpack
 
-## Development Servers
+### Development Servers
 - App Server
   - HTTPS Express Server
     - Webpack Dev Server
 - API Server
-  - Mock server
-  - Proxy to real API server
 
-## JavaScript
+### JavaScript
 - Babel
   - ES2015
   - React
   - Stage-2
 - ESLint
   - Airbnb config
+
+### Libraries
 - React
 - Redux
 - React Router
-  - react-router-redux
+- react-router-redux
 - whatwg-fetch
 
-## Style
+### Style
 - SCSS
 - [Sass Lint](https://github.com/sasstools/sass-lint)
   - [Default config](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml)
@@ -63,13 +65,12 @@ npm start
   - react-css-modules
 - Extract Text Plugin for Webpack
 
-## Test
+### Test
 - Karma
 - Mocha
 - Enzyme
-- Protractor
 
-## Git Hook
+### Git Hook
 - husky
 
 ---
