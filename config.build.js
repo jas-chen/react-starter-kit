@@ -1,9 +1,7 @@
 const path = require('path');
 
-const buildDir = path.join(__dirname, 'dist');
-const assertsPath = '/assets/';
-
 module.exports = {
-  buildDir: buildDir,
+  // remember to modify `clean` and `postbuild` task in package.json
+  buildDir: path.join(__dirname, 'dist'),
   assertsPath: '/assets/'
 };
