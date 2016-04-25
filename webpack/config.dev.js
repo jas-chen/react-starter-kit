@@ -1,7 +1,8 @@
 'use strict';
 
 const path = require('path');
-const commonLoaders = require('./commonLoaders.js');
+const buildConfig = require('../config.build');
+const commonLoaders = require('./commonLoaders');
 const autoprefixer = require('autoprefixer');
 const sassLintPlugin = require('sasslint-webpack-plugin');
 const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
@@ -28,8 +29,8 @@ const config = {
       main: ['./app.js']
     },
     output: {
-      path: __dirname, // Just don't let this field be empty.
-      publicPath: '/assets/',
+      path: path.join(buildConfig.buildDir, buildConfig.assertsPath),
+      publicPath: buildConfig.assertsPath,
       filename: '[hash].[name].js'
     },
     module: {

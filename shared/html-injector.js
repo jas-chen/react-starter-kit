@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-
-function Injector(publicPath, chunkNames) {
-  this.finalPath = publicPath || '/';
-  this.chunkNames = chunkNames;
-}
+const buildConfig = require('../config.build.js');
 
 function Html(props) {
   const { js, css } = props.chunks;
@@ -24,21 +20,21 @@ function Html(props) {
   );
 }
 
-Injector.prototype.inject = function(assetsByChunkName) {
-  const chunks = this.chunkNames.reduce((chunks, name) => {
+function inject(chunkNames, assetsByChunkName) {
+  const chunks = chunkNames.reduce((chunks, name) => {
     if (typeof assetsByChunkName[name] === 'string') {
-      chunks.js.push(`${this.finalPath}${assetsByChunkName[name]}`);
+      chunks.js.push(`${buildConfig.assertsPath}${assetsByChunkName[name]}`);
       return chunks;
     }
 
     const jsFile = assetsByChunkName[name].find(filename => filename.match(/\.js$/));
     if (jsFile) {
-      chunks.js.push(`${this.finalPath}${jsFile}`);
+      chunks.js.push(`${buildConfig.assertsPath}${jsFile}`);
     }
 
     const cssFile = assetsByChunkName[name].find(filename => filename.match(/\.css$/));
     if (cssFile) {
-      chunks.css.push(`${this.finalPath}${cssFile}`);
+      chunks.css.push(`${buildConfig.assertsPath}${cssFile}`);
     }
 
     return chunks;
@@ -48,4 +44,4 @@ Injector.prototype.inject = function(assetsByChunkName) {
   return `<!DOCTYPE html>${markup}`;
 }
 
-export default Injector;
+export default inject;

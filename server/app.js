@@ -9,9 +9,8 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import proxy from 'proxy-middleware';
 import config from '../webpack/config.dev';
-import Injector from '../shared/html-injector.js';
-
-const injector = new Injector(config.output.publicPath, ['main']);
+import { routes } from '../config.routes';
+import inject from '../shared/html-injector';
 
 const app = new (require('express'))();
 
@@ -25,6 +24,7 @@ const publicPath = `https://localhost:${devPort}${config.output.publicPath}`;
 const statsUrl = url.parse(`${publicPath}stats.json`);
 statsUrl.rejectUnauthorized = false;
 
+// get webpack stats from webpack dev server
 function getStats(cb) {
   https.get(statsUrl, (statsRes) => {
     let body = '';
@@ -38,18 +38,25 @@ function getStats(cb) {
   }).on('error', e => { throw e; });
 }
 
-// proxy to webpack dev server
+
+// proxy assets path to webpack dev server
 const devUrl = url.parse(publicPath);
 devUrl.rejectUnauthorized = false;
 app.use(`${config.output.publicPath}`, proxy(devUrl));
 
 
-// serve index.html
-app.get('/', function response(req, res, next) {
-  getStats(stats => {
-    const html = injector.inject(stats.assetsByChunkName);
-    res.send(html);
-  });
+// serve html
+routes.forEach(route => {
+  const handler = ((route) => {
+    return (req, res) => {
+      getStats(stats => {
+        const html = inject(route.chuncks, stats.assetsByChunkName);
+        res.send(html);
+      });
+    }
+  })(route);
+
+  app.get(route.path, handler);
 });
 
 function StartHttpsServer() {
