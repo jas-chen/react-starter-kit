@@ -2,7 +2,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const commonLoaders = require('./commonLoaders.js');
+const buildConfig = require('../config.build');
+const commonLoaders = require('./commonLoaders');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
@@ -28,8 +29,8 @@ const config = {
       main: ['./app.js']
     },
     output: {
-      path: path.join(__dirname, '..', 'dist', 'assets'),
-      publicPath: '/assets/',
+      path: path.join(buildConfig.buildDir, buildConfig.assertsPath),
+      publicPath: buildConfig.assertsPath,
       filename: '[chunkhash:8].[name].js'
     },
     module: {
@@ -58,6 +59,7 @@ const config = {
         }
       }),
       new StatsWriterPlugin({
+        // generate stats.json under buildDir
         filename: '../stats.json'
       })
     ]
