@@ -22,7 +22,7 @@ function fileExist(file) {
 }
 
 routes.forEach(route => {
-  const html = inject(route.chuncks, stats.assetsByChunkName);
+  const html = inject(route, stats.assetsByChunkName);
   const routeDir = path.join(buildConfig.buildDir, route.path);
   const filename = path.join(routeDir, 'index.html');
 

@@ -50,7 +50,7 @@ routes.forEach(route => {
   const handler = ((route) => {
     return (req, res) => {
       getStats(stats => {
-        const html = inject(route.chuncks, stats.assetsByChunkName);
+        const html = inject(route, stats.assetsByChunkName);
         res.send(html);
       });
     }

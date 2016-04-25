@@ -3,25 +3,25 @@ import ReactDOMServer from 'react-dom/server';
 const buildConfig = require('../config.build.js');
 
 function Html(props) {
-  const { js, css } = props.chunks;
+  const { chunks, route } = props;
 
   return (
     <html lang="zh-hant">
     <head>
       <meta charSet="UTF-8" />
-      <title>React Starter Kit</title>
-      { css.map((href, i) => <link key={i} rel="stylesheet" href={href} />) }
+      <title>{ route.title }</title>
+      { chunks.css.map((href, i) => <link key={i} rel="stylesheet" href={href} />) }
     </head>
     <body>
       <div id="root"></div>
-      { js.map((src, i) => <script key={i} src={src}></script>) }
+      { chunks.js.map((src, i) => <script key={i} src={src}></script>) }
     </body>
     </html>
   );
 }
 
-function inject(chunkNames, assetsByChunkName) {
-  const chunks = chunkNames.reduce((chunks, name) => {
+function inject(route, assetsByChunkName) {
+  const chunks = route.chunks.reduce((chunks, name) => {
     if (typeof assetsByChunkName[name] === 'string') {
       chunks.js.push(`${buildConfig.assertsPath}${assetsByChunkName[name]}`);
       return chunks;
@@ -40,7 +40,7 @@ function inject(chunkNames, assetsByChunkName) {
     return chunks;
   }, { js: [], css: []});
 
-  const markup = ReactDOMServer.renderToStaticMarkup(<Html chunks={chunks} />);
+  const markup = ReactDOMServer.renderToStaticMarkup(<Html chunks={chunks} route={route}/>);
   return `<!DOCTYPE html>${markup}`;
 }
 
