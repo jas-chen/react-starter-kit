@@ -56,8 +56,4 @@ const config = {
     ]
 };
 
-for (var key in config.entry) {
-  config.entry[key].unshift('babel-polyfill', 'whatwg-fetch');
-}
-
 module.exports = config;
