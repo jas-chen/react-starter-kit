@@ -57,8 +57,6 @@ npm start
 
 ### Style
 - SCSS
-- [Sass Lint](https://github.com/sasstools/sass-lint)
-  - [Default config](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml)
 - PostCSS
   - Autoprefixer
 - CSS Modules

@@ -4,7 +4,6 @@ const path = require('path');
 const buildConfig = require('../config.build');
 const commonLoaders = require('./commonLoaders');
 const autoprefixer = require('autoprefixer');
-const sassLintPlugin = require('sasslint-webpack-plugin');
 const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const jsLoader = {
@@ -52,7 +51,6 @@ const config = {
       ]
     },
     plugins: [
-      new sassLintPlugin(),
       new StatsWriterPlugin()
     ]
 };
