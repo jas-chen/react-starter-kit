@@ -26,7 +26,7 @@ const config = {
     context: path.resolve(__dirname, '../src/'),
     devtool: 'eval',
     entry: {
-      main: ['./app.js']
+      main: ['./index.js']
     },
     output: {
       path: path.join(buildConfig.buildDir, buildConfig.assertsPath),

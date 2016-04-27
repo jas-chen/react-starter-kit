@@ -7,7 +7,7 @@ import createHashHistory from 'history/lib/createHashHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import Layout from './components/Layout/Layout';
-import Home from './components/Home/Home';
+import Home from './containers/Home';
 import About from './components/About/About';
 import Repos from './components/Repos/Repos';
 

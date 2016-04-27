@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as Actions from '../../actions/counter';
 
 function Home(props) {
   const { number, increase, decrease } = props;
@@ -20,8 +18,4 @@ Home.propTypes = {
   decrease: React.PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  return { number: state.counter.number };
-}
-
-export default connect(mapStateToProps, Actions)(Home);
+export default Home;
