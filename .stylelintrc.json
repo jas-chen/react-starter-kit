@@ -1,0 +1,19 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-no-id": true,
+    "font-family-name-quotes": "single-where-recommended",
+    "function-url-quotes": "single",
+    "string-quotes": "single",
+    "at-rule-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "max-nesting-depth": [2, {
+      "ignore": ["at-rules-without-declaration-blocks"]
+    }],
+    "number-leading-zero": null,
+    "unit-whitelist": ["em", "%", "vw", "vh"]
+  }
+}
