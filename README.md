@@ -57,6 +57,7 @@ npm start
 
 ### Style
 - SCSS
+- stylelint
 - PostCSS
   - Autoprefixer
 - CSS Modules
