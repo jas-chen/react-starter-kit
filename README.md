@@ -68,6 +68,7 @@ npm start
 - Karma
 - Mocha
 - Enzyme
+- Istanbul
 
 ### Git Hook
 - husky
