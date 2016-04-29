@@ -1,10 +1,8 @@
-'use strict'
-
 import path from 'path';
 import https from 'https';
 import fs from 'fs';
 import url from 'url';
-
+import express from 'express';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import proxy from 'proxy-middleware';
@@ -12,11 +10,8 @@ import config from '../webpack/config.dev';
 import { routes } from '../config.routes';
 import inject from '../shared/html-injector';
 
-const app = new (require('express'))();
-
+const app = express();
 const sslPath = path.join(__dirname, '..', 'node_modules', 'webpack-dev-server', 'ssl');
-
-
 const port = 3000;
 const devPort = 3001;
 
@@ -30,10 +25,14 @@ function getStats(cb) {
     let body = '';
 
     if (statsRes.statusCode !== 200) {
-      throw new Error(`Cannot get webpack stats from ${statsUrl.href}. Status code is ${statsRes.statusCode}.`);
+      throw new Error(
+        `Cannot get webpack stats from ${statsUrl.href}. Status code is ${statsRes.statusCode}.`
+      );
     }
 
-    statsRes.on('data', (chunk) => body += chunk);
+    statsRes.on('data', chunk => {
+      body += chunk;
+    });
     statsRes.on('end', () => cb(JSON.parse(body)));
   }).on('error', e => { throw e; });
 }
@@ -47,19 +46,19 @@ app.use(`${config.output.publicPath}`, proxy(devUrl));
 
 // serve html
 routes.forEach(route => {
-  const handler = ((route) => {
+  const handler = (function bindScope(_route) {
     return (req, res) => {
       getStats(stats => {
-        const html = inject(route, stats.assetsByChunkName);
+        const html = inject(_route, stats.assetsByChunkName);
         res.send(html);
       });
-    }
-  })(route);
+    };
+  }(route));
 
   app.get(route.path, handler);
 });
 
-function StartHttpsServer() {
+function startHttpsServer() {
   https
   .createServer({
     key: fs.readFileSync(path.join(sslPath, 'server.key')),
@@ -75,9 +74,9 @@ function StartHttpsServer() {
   });
 }
 
-for (var key in config.entry) {
-  config.entry[key].unshift(`webpack-dev-server/client?https://localhost:${devPort}`);
-}
+Object
+  .keys(config.entry)
+  .forEach(k => config.entry[k].unshift(`webpack-dev-server/client?https://localhost:${devPort}`));
 
 const webpackDevServer = new WebpackDevServer(webpack(config), {
   hot: false,
@@ -92,6 +91,6 @@ webpackDevServer.listen(devPort, (err) => {
   if (err) {
     console.err(err);
   } else {
-    StartHttpsServer();
+    startHttpsServer();
   }
 });

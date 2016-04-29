@@ -1,7 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-
-import config from '../webpack/config.prod';
 import buildConfig from '../config.build';
 import inject from '../shared/html-injector';
 import { routes } from '../config.routes';
@@ -12,7 +10,7 @@ function fileExist(file) {
   let exist = true;
   try {
     fs.statSync(file);
-  } catch(e) {
+  } catch (e) {
     if (e.errno === -2) {
       exist = false;
     }

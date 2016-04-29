@@ -16,7 +16,7 @@ https
     key: fs.readFileSync(path.join(sslPath, 'server.key')),
     cert: fs.readFileSync(path.join(sslPath, 'server.crt'))
   }, app)
-  .listen(port, function() {
+  .listen(port, () => {
     console.log(`==> Static server is running on port ${port}. Open https://localhost:${port}/ to visit it.`);
     console.log(`==> Serve files from ${buildConfig.buildDir}.`);
   });
