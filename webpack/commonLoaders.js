@@ -6,5 +6,9 @@ module.exports = [
   {
     test: /\.(eot|woff|ttf)$/,
     loader: 'file?name=font/[name].[ext]'
+  },
+  {
+    test: /\.json$/,
+    loader: 'json'
   }
 ];

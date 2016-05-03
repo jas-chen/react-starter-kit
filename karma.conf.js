@@ -1,14 +1,4 @@
-const webpack = require('webpack');
-const webpackConfig = require('./webpack/config.dev.js');
-webpackConfig.devtool = 'inline-source-map';
-webpackConfig.externals = webpackConfig.externals || {};
-
-Object.assign(webpackConfig.externals, {
-  cheerio: 'window',
-  'react/addons': true,
-  'react/lib/ExecutionEnvironment': true,
-  'react/lib/ReactContext': true
-});
+const webpackConfig = require('./webpack/config.test.js');
 
 module.exports = function set(config) {
   config.set({
@@ -19,7 +9,7 @@ module.exports = function set(config) {
       'tests.webpack.js'
     ],
     preprocessors: {
-      'tests.webpack.js': ['webpack', 'sourcemap', 'coverage']
+      'tests.webpack.js': ['webpack', 'sourcemap', 'sourcemap-writer', 'coverage']
     },
     reporters: ['mocha', 'coverage'],
     webpack: webpackConfig,
@@ -27,9 +17,9 @@ module.exports = function set(config) {
       noInfo: true
     },
     coverageReporter: {
-      type: 'text',
-      dir: 'coverage/',
-      file: 'coverage.txt'
+      type: 'json',
+      subdir: '.',
+      file: 'coverage-final.json'
     },
     plugins: [
       'karma-chrome-launcher',
@@ -37,6 +27,7 @@ module.exports = function set(config) {
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-sourcemap-loader',
+      'karma-sourcemap-writer',
       'karma-coverage'
     ]
   });
