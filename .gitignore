@@ -4,4 +4,3 @@ logs
 *.log
 /dist
 /coverage
-*.map

@@ -11,7 +11,7 @@
     "clean": "rm -rf dist",
     "pretest": "rm -rf coverage",
     "test": "NODE_ENV=test karma start",
-    "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage/html-report -t html && echo \"open coverage/html-report/index.html to see the coverage report.\"",
+    "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage/coverage-remapped.json -t json && node scripts/generate-coverage-report.js && rm tests.webpack.js.map",
     "lint:js": "eslint src",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
     "lint": "npm run lint:js && npm run lint:css",
