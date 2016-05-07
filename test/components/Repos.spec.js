@@ -1,18 +1,18 @@
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
-import About from '../../src/components/About/About';
+import Repos from '../../src/components/Repos/Repos';
 
 function setup() {
   return shallow(
-    <About />
+    <Repos />
   );
 }
 
-describe('About component', () => {
+describe('Repos component', () => {
   const component = setup();
 
   it('should display title', () => {
-    expect(component.find('h1').text()).toEqual('About');
+    expect(component.find('h1').text()).toEqual('Repos');
   });
 });

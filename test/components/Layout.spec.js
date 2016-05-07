@@ -14,7 +14,7 @@ function setup(component) {
 describe('Layout component', () => {
   const component = setup(<h1>{rendomString}</h1>);
 
-  it('should display logo', () => {
+  it('should display site name', () => {
     expect(component.find('div').find('div').eq(0).text()).toEqual('React Starter Kit');
   });
 

@@ -4,8 +4,9 @@ function Home(props) {
   const { number, increase, decrease } = props;
   return (
     <div>
+      <h1>Home</h1>
       Some state changes:
-      {number}
+      <span>{number}</span>
       <button onClick={() => increase(1)}>Increase</button>
       <button onClick={() => decrease(1)}>Decrease</button>
     </div>
